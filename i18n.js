@@ -225,7 +225,7 @@ const I18N = {
     'mod.quiz.result.overview':  'Zur \u00dcbersicht',
     'mod.quiz.retry':            'Quiz erneut versuchen',
     'mod.quiz.reread':           'Material erneut lesen',
-    'mod.quiz.locked':           '\U0001f512 Erst nach bestandenem Quiz (\u2265 {pass} %)',
+    'mod.quiz.locked':           '🔒 Erst nach bestandenem Quiz (\u2265 {pass} %)',
   },
 
   en: {
@@ -431,6 +431,7 @@ const I18N = {
     'mod.highlight.remove':      'Click to remove highlight',
     'mod.quiz.question':         'Question {i} of {total}',
     'mod.quiz.subtitle':         '{total} questions \u00b7 Pass threshold {pass}%',
+    'mod.quiz.keyhint':          'Keyboard: 1\u20134 to select \u00b7 Enter to confirm \u00b7 \u2190 \u2192 to navigate',
     'mod.quiz.choose':           'Choose an answer',
     'mod.quiz.back':             '\u2190 Back',
     'mod.quiz.next':             'Next question \u2192',
@@ -447,7 +448,7 @@ const I18N = {
     'mod.quiz.result.overview':  'Back to overview',
     'mod.quiz.retry':            'Retry quiz',
     'mod.quiz.reread':           'Re-read material',
-    'mod.quiz.locked':           '\U0001f512 Complete the quiz first (\u2265 {pass}%)',
+    'mod.quiz.locked':           '🔒 Complete the quiz first (\u2265 {pass}%)',
   },
 };
 
