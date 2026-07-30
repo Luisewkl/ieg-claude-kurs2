@@ -33,8 +33,8 @@ function resetProgress() {
   if (!confirm(t('reset.confirm'))) return;
   state = { completed: [], finalPassed: false, finalScore: 0, userName: '', completionDate: '', lastExam: null };
   saveState();
-  saveProgressToSupabase();
-  saveLastExamToSupabase();
+  // Reihenfolge wichtig: upsert (legt Zeile ggf. an) VOR update.
+  saveProgressToSupabase().then(saveLastExamToSupabase);
   renderEverything();
   document.getElementById('curriculum').scrollIntoView({ behavior: 'smooth' });
 }
@@ -979,11 +979,14 @@ async function saveProgressToSupabase() {
 
 // Getrennt gespeichert: falls die Spalte 'last_exam' (noch) nicht existiert,
 // schlaegt nur DIESER Aufruf fehl — der Fortschritt bleibt davon unberuehrt.
+// Hinweis: Der Guard prueft absichtlich NICHT auf state.lastExam — beim
+// Zuruecksetzen des Fortschritts muss 'null' geschrieben werden, sonst bleibt
+// die alte Pruefungsauswertung serverseitig stehen und wird neu geladen.
 async function saveLastExamToSupabase() {
-  if (!window.sb || !currentUserId || !state.lastExam) return;
+  if (!window.sb || !currentUserId) return;
   try {
     var res = await window.sb.from('user_progress')
-      .update({ last_exam: state.lastExam }).eq('user_id', currentUserId);
+      .update({ last_exam: state.lastExam || null }).eq('user_id', currentUserId);
     if (res.error) console.warn('Supabase last_exam save skipped:', res.error.message);
   } catch (e) { console.warn('Supabase last_exam save skipped:', e && e.message); }
 }
